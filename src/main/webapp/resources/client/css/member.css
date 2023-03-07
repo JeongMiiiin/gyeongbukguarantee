@@ -1,0 +1,83 @@
+/* MEMBER CSS-회원 구성 CSS (회원구성이 필요시에만 사용)*/
+
+/* login */
+.login { width:420px; float:left; margin:0 auto; padding:40px 0 ; }
+.login h3 {width:100%; text-align:center; font-size:48px; padding:0 0 15px 0; }
+.login .lwrap {width:320px; float:left; margin:0 auto; padding:0 0 20px;  }
+.login .lwrap dl {width:100%; overflow:hidden; display:block;padding:0 0 3px;}
+.login .lwrap dl dt {width:20%; float:left; line-height:37px; font-weight:600; font-size:14px;}
+.login .lwrap dl dd {width:78%; float:right; }
+.login .lwrap dl dd input {width:95%; line-height:36px; height:36px; }
+.login .lwrap p {width:100%; text-align:left; padding:5px 0 0 0 ;}
+.login .lwrap p input {margin-left:66px;}
+.login .lbtn {width:98px; float:right; text-align:right;}
+.login .lbtn input {width:98%; line-height:79px; height:79px; color:#fff; background:#333;border:1px solid #333; font-size:15px; font-weight:600; }
+.login .bwrap {width:100%; overflow:hidden; display:block; padding:20px 0 0 0 ; border-top:1px dotted #aaa; }
+.login .bwrap dl {width:100%;padding:3px 0 0 0; overflow:hidden; display:block; }
+.login .bwrap dl dt {width:60%;float:left; line-height:29px; color:#777;}
+.login .bwrap dl dd {width:35%;float:right;text-align:right;}
+.login .bwrap dl dd a {width:98%; line-height:28px; height:28px; text-align:center;}
+
+/* terms */
+.termswrap { width:100%;padding:20px 0 0 0;}
+.terms h2.termstit {color:#333; padding:5px 0 20px; font-size:19px;line-height:1.2; font-weight:600;  width:100%;  }
+.terms h3.termstit {color:#333;margin:5px 0 ; font-size:15px;line-height:1.2; font-weight:600   }
+.terms {width:100%; padding:0; margin:0; overflow:hidden; }
+.terms div.inbox {padding:0 0 20px 0;}
+.terms div.inbox ul.list {padding:10px 0 5px 10px;}
+.terms div.inbox ul.list li {color:#555; line-height:1.4; padding:5px 0 0 0; }
+.terms div.inbox ul.slist {padding:5px 0 5px 10px;}
+.terms div.inbox ul.slist li {color:#777; font-size:12px;}
+.terms div.inbox ul.mclist {padding:5px 0 5px 10px;}
+.terms div.inbox ul.mclist li {color:#777; font-size:12px; background:url('../images/common/gdot.gif') no-repeat 0 8px; padding-left:12px;}
+.terms p{ padding:7px 0 0 5px; color:#333;}
+.terms strong{display:inline-block;font-size:14px;line-height:20px;margin-bottom:5px;padding-left:5px;   }
+
+/* join */
+.join {width:100%; overflow:hidden;display:block; margin:30px 0 0 0; }
+.join .lwrap {width:100%; }
+.join h3 { font-size:19px; font-weight:600; color:#222; padding:0 0 10px; }
+.join h3 p {float:right;font-size:12px; color:#777; line-height:1.2; margin-top:7px;}
+
+.form_write {border-top:1px solid #aaa;}
+.form_write dl {width:100%;  overflow:hidden; display:block; padding:10px 0 ; border-bottom:1px dotted #aaa; }
+.form_write dl dt {width:25%;max-width:150px; float:left;}
+.form_write dl dd {width:74%; float:left;}
+
+.join .rwrap {width:100%; }
+.join .rwrap .inwrap {width:100%;}
+.join .rwrap .inwrap h4 { font-size:15px; font-weight:600; color:#222; padding:20px 0 10px; }
+.join .rwrap .inwrap .jbox  {width:80%; padding:2%; _width:99%; height:80px; overflow-y:scroll; border:1px solid #ccc; margin:0 0 5px;}
+.join .rwrap .inwrap label {width:100%; }
+
+/* join_end */
+.join_end {padding:40px 0 50px 0; float:left;}
+.join_end h3.etit {width:100%; text-align:center; padding:20px 0 30px;font-size:25px;  color: #777; }
+.join_end h3.etit p {width:100%; display:block; font-size:50px; font-family: 'Nanum Brush Script'; color: #333;}
+.join_end p {width:100%; text-align:center; color:#777 ; font-size:15px; }
+
+/* text */
+.ex_span {font-size:12px; color:#777; padding-left:10px; line-height:30px;}
+.ex_div {width:100%; font-size:12px; color:#777; padding-top:10px; line-height:1.4;}
+
+/* btn */
+.btn {width:100%; overflow:hidden; display:block; text-align:center; padding: 30px 0 0 0 ; }
+.btn a, .btn input {width:150px; font-weight:600;line-height:36px; height:38px; }
+
+/* btn */
+.btn_pop {width:100%; overflow:hidden; display:block; text-align:center; padding:20px 0 0 0 ; }
+.btn_pop a, .btn_pop input {width:120px; font-weight:600; line-height:32px; height:34px;}
+
+/* pop_wrap */
+.pop_wrap {width:100%; padding:0; }
+.pop_wrap h2 {width:100%; padding:10px 0; font-size:19px; color:#fff; font-weight:600; text-align:center; background:#23375a; }
+.pop_wrap .inwrap {padding:20px; }
+.pop_wrap .inwrap .find {width:100%;}
+.pop_wrap .inwrap .find h4 {width:100%; font-size:15px; font-weight:600; color:#333; padding:3px 0 8px;}
+.pop_wrap .inwrap .find p {width:100%; font-size:11px;  color:#888; padding:0 0 12px 0 ; }
+.pop_wrap .inwrap .find dl {width:100%; padding:3px 0 0 0;overflow:hidden; display:block;}
+.pop_wrap .inwrap .find dl dt {width:15%; float:left; text-align:right; line-height:30px; color:#333; font-weight:600; }
+.pop_wrap .inwrap .find dl dd {width:80%; float:right;color:#777;   }
+.dotbox { width:95.97%; padding:10px 2%;text-align:left;border:1px #ccc dashed; line-height:1.8;}
+
+.checkid {width:100%; text-align:center; }

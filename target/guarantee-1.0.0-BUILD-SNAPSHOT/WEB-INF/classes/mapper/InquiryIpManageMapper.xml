@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inquiryIp.manage">
+	<sql id="whereParam" >
+		<if test="searchId != null and searchId != ''">
+			<![CDATA[ 
+			 AND 
+				gb.mem_userid like concat('%',#{searchId},'%') 
+			 ]]> 
+		</if>
+		<if test="searchName != null and searchName != ''">
+			<![CDATA[ 
+			 AND 
+				gb.mem_username like concat('%',#{searchName},'%') 
+			 ]]> 
+		</if>
+	</sql>
+	
+	<!-- 리스트 조회 -->
+	<select id="selectListData" parameterType="InquiryIpDto" resultMap="CommonDto.InquiryIpMap">
+		SELECT gmil.*, DATE_FORMAT(gmil.mil_request_at, '%Y-%m-%d') AS mil_request_at_str, gb.mem_username, gb.mem_userid
+		FROM gb_member_ip_log gmil
+		LEFT JOIN gb_member gb ON gmil.mem_idx = gb.mem_idx 
+		WHERE gmil.mil_deleted_at IS NULL <include refid="whereParam"/>
+		ORDER BY mil_request_at DESC
+		<![CDATA[			
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+		]]>	
+	</select>
+
+	<!-- 총 건수 -->
+	<select id="selectTotalCnt" parameterType="InquiryIpDto" resultType="int">
+		SELECT COUNT(*) FROM gb_member_ip_log gmil
+		LEFT JOIN gb_member gb ON gmil.mem_idx = gb.mem_idx 
+		WHERE gmil.mil_deleted_at IS NULL <include refid="whereParam"/>
+	</select>
+	
+	<!-- 상세 데이터 조회 -->
+	<select id="selectViewData" parameterType="int" resultMap="CommonDto.InquiryIpMap">
+		SELECT gmil.*, gb.mem_username, gb.mem_userid FROM gb_member_ip_log gmil
+		LEFT JOIN gb_member gb ON gmil.mem_idx = gb.mem_idx
+		WHERE mil_idx = #{mil_idx}
+	</select>
+	
+	<!-- 요청상태 변경 -->
+	<update id="updateRequest" parameterType="HashMap">
+		UPDATE gb_member_ip_log SET mil_is_approved = #{requestStatus}, mil_approve_at = now() WHERE mil_idx = #{milIdx} LIMIT 1
+	</update>
+	
+	<!-- 멤버 승인 IP로 변경 -->
+	<update id="updateMemberIp" parameterType="HashMap">
+		UPDATE gb_member SET mem_access_ip = #{milAccessIp} WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+	<!-- 논리적 삭제 -->
+	<update id="deleteData" parameterType="int">
+		UPDATE gb_member_ip_log SET mem_deleted_at = now() WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+	<!-- 물리적 삭제 -->
+	<update id="removeData" parameterType="int">
+		DELETE FROM gb_member_ip_log WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+</mapper>

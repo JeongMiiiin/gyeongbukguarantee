@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.footer_wrap{background-color: #fff; padding: 20px 20px 20px 20px;}
+.footer_wrap .copyright{font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 300; letter-spacing: -0.02em;}
+
+@media all and (min-width: 768px){
+	
+}
+
+@media all and (min-width: 992px){
+			
+}
+
+@media all and (min-width: 1200px){
+	/* .footer_wrap{padding-left: 290px;} */
+}
+
+@media all and (min-width: 1600px){
+	
+}

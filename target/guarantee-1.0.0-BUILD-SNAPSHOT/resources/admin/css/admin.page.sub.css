@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+/* S-CoreDream */
+@font-face { font-family: 'S-CoreDream'; font-weight: 100; font-style: normal; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-1Thin.woff') format('woff');}
+@font-face { font-family: 'S-CoreDrea'; font-weight: 200; font-style: normal; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-2ExtraLight.woff') format('woff');}
+@font-face { font-family: 'S-CoreDream'; font-weight: 300; font-style: normal; 
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); }
+@font-face { font-family: 'S-CoreDream'; font-weight: 400; font-style: normal; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');}
+@font-face { font-family: 'S-CoreDream'; font-weight: 500; font-style: normal; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');}
+@font-face { font-family: 'S-CoreDream'; font-weight: 600; font-style: normal; 
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); }
+@font-face { font-family: 'S-CoreDream'; font-weight: 700; font-style: normal; 
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');}
+@font-face { font-family: 'S-CoreDream'; font-weight: 900; font-style: normal; 
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');}
+
+.point_red{color: #ff4d4f !important;}
+
+/* admin_card_style_0 - 상담지점, 상담시간관리에서 사용 */
+.admin_card_list_style_0_wrap{background-color: #fff; border-radius: 7px; padding: 35px;}
+.admin_card_list_style_0_con{width: calc(100% + 20px); margin-left: -20px; margin-bottom: -20px; display: flex; flex-wrap: wrap; align-items: stretch;}
+.admin_card_list_style_0{padding-left: 20px; margin-bottom: 20px;}
+.admin_card_list_style_0_inner{border: 1px solid #ced0dd; padding: 30px 20px; text-align: center; border-radius: 10%; display: flex; height: 100%; flex-direction: column; justify-content: space-between; box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;}
+.admin_card_list_style_0_inner .title{margin-bottom: 6px; font-size: 21px; font-size: 2.1rem; line-height: 27px; line-height: 2.7rem; font-weight: 600; letter-spacing: -0.02em;}
+.admin_card_list_style_0_inner .category{font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 300; letter-spacing: -0.02em;}
+.admin_card_list_style_0_inner .top_box{margin-bottom: 20px;}
+.admin_card_list_style_0_inner .manager_name{font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 300; letter-spacing: -0.02em;}
+.admin_card_list_style_0_inner .manager_name > span{font-weight: 500;}
+
+
+.admin_card_list_style_0.plus_btn{min-height: 202px;}
+.admin_card_list_style_0.plus_btn .admin_card_list_style_0_inner::before{content: ''; position:absolute; height: 20px; border-right: 2px solid #000; top: calc(50% - 10px); left: calc(50% - 1px);}
+.admin_card_list_style_0.plus_btn .admin_card_list_style_0_inner::after{content: ''; position:absolute; width: 20px; border-top: 2px solid #000; top: calc(50% - 1px); left: calc(50% - 10px);}
+
+/* 시간대별창구설정과 특정일별 창구설정을 위해 필요한 css */
+.plus_counter_con{display: flex; flex-wrap: wrap; align-items: center;}
+.plus_counter_con .admin_input_style_0_con{width: calc(100% - 60px);}
+
+.custom_select_list{font-size: 0; line-height: 0;}
+.custom_select_list > li{display: block; font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 300; letter-spacing: -0.02em; color: #31373d; padding-top: 5px; padding-bottom: 5px;}
+.custom_select_list > li > a{vertical-align: middle; margin-left: 5px;}
+
+.custom_select_list.time .addr_text{font-size: 14px; font-size: 1.4rem; line-height: 20px; line-height: 2.0rem; font-weight: 300; letter-spacing: -0.02em;}
+.custom_select_list.time .day_of_week{font-size: 14px; font-size: 1.4rem; line-height: 20px; line-height: 2.0rem; font-weight: 300; letter-spacing: -0.02em;}
+
+.delete_icon_btn{margin-left: 5px; box-sizing: border-box; font-size: 0; line-height: 0; display: inline-block; vertical-align: middle; width: 20px; height: 20px; position: relative;}
+.delete_icon_btn::before, .delete_icon_btn::after{position: absolute;left: 8px;content:' ';height: 20px;width: 1px;background-color: #000;}
+.delete_icon_btn::before {transform: rotate(45deg);}
+.delete_icon_btn::after {transform: rotate(-45deg);}
+
+.admin_relative_calendar_con{background-color: #fff; padding: 10px; border-radius:7px; overflow: hidden;}
+.admin_relative_calendar_con .admin_relative_calendar_title{padding: 10px 5px; margin-bottom: 10px; font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 500; letter-spacing: -0.02em; color: #31373d; border-bottom: 1px solid #dfdfdf;}
+.admin_relative_calendar_con [data-common-datepicker]{width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0; border: 0;}
+.admin_relative_calendar_con #ui-datepicker-div{float: left; width: 100%; position: relative !important; display: block !important; top: 0 !important; left: 0 !important; margin-top: 0; padding: 0; width: 100%; box-shadow: none; border-radius: 0;}
+.admin_relative_calendar_con  .ui-datepicker .ui-datepicker-title {font-family: 'S-CoreDream'; margin: 0 0em; font-size: 28px; text-align: center; font-weight: 900; padding: 10px 0;}
+.admin_relative_calendar_con .ui-datepicker table{margin: 0; border-top: 1px solid #dfdfdf;}
+.admin_relative_calendar_con .ui-helper-clearfix:before, .ui-helper-clearfix:after{content: none;}
+
+.admin_relative_calendar_con .ui-datepicker .ui-datepicker-title {font-family: 'S-CoreDream'; margin: 0 0em; font-size: 28px; text-align: center; font-weight: 900; padding: 10px 0; line-height: 1.8em;}
+
+/* .ui-widget-header{} */
+.admin_relative_calendar_con .ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
+.admin_relative_calendar_con .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
+.admin_relative_calendar_con .ui-datepicker .ui-datepicker-header { position: relative; padding: 0; } 
+.admin_relative_calendar_con .ui-state-default, .admin_relative_calendar_con .ui-widget-content .ui-state-default, .admin_relative_calendar_con .ui-widget-header .ui-state-default, .admin_relative_calendar_con .ui-button, .admin_relative_calendar_con .ui-button.ui-state-disabled:hover, .admin_relative_calendar_con .ui-button.ui-state-disabled:active {text-align: left !important; border: 0px; background-color: transparent; padding: 5px 10px 35px; cursor: pointer; font-weight: 300 !important; text-align: center; font-size: 17px; display: block; border-radius: 0;} 
+.admin_relative_calendar_con .data-weekend{opacity: 1 !important; color: #000;} 
+.admin_relative_calendar_con .ui-widget.ui-widget-content { border: 1px solid #eee; }
+.admin_relative_calendar_con .ui-datepicker .ui-datepicker-prev, .admin_relative_calendar_con .ui-datepicker .ui-datepicker-next{top: 50%; transform: translateY(-50%);}
+.admin_relative_calendar_con .ui-datepicker-prev, .admin_relative_calendar_con .ui-datepicker-next { cursor: pointer; } 
+.admin_relative_calendar_con .ui-datepicker-next { float: right; }
+.admin_relative_calendar_con .ui-datepicker select.ui-datepicker-month, .admin_relative_calendar_con .ui-datepicker select.ui-datepicker-year{width: 40%;}
+.admin_relative_calendar_con .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
+.admin_relative_calendar_con .ui-datepicker-title { text-align: center; padding: 0; font-weight: 100; font-size: 20px; } 
+.admin_relative_calendar_con .ui-datepicker-calendar { width: 100%; } 
+.admin_relative_calendar_con .ui-datepicker-calendar > thead > tr > th {font-family: 'S-CoreDream'; width: 14.28%; text-align: center; border-right: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf; font-size: 17px; padding: 10px 0; background-color: #f7f7f7; }
+
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td > a {border-radius: 0; font-size: 17px !important; font-weight: 300; display: block; color: #999; text-decoration: none;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td > a::after{font-family: 'S-CoreDream'; display: block; content: '예약가능'; background-color: #2f4d86; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-branch-holiday{opacity: 1;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-branch-holiday > span::after{font-family: 'S-CoreDream'; display: block; content: '자체휴무'; background-color: #aeaeae; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-branch-deadline{opacity: 1;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-branch-deadline > span::after{font-family: 'S-CoreDream'; display: block; content: '예약마감'; background-color: #aeaeae; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-branch-deadline > a::after{font-family: 'S-CoreDream'; display: block; content: '예약마감'; background-color: #aeaeae; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-holiday{opacity: 1;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-holiday > span{color: #fc4c4e !important;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.data-holiday > span::after{font-family: 'S-CoreDream'; display: block; content: '공휴일'; background-color: #fc4c4e; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > .ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td {border-radius: 0; font-family: 'S-CoreDream'; width: 14.28%; text-align: left; border-right: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf; vertical-align: top;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td.active{background-color: #f1f1f1;} 
+ /* .ui-datepicker-calendar > tbody > tr > td:hover { background-color: #f1f1f1;}  */
+
+.admin_relative_calendar_con .ui-state-hover, .admin_relative_calendar_con .ui-widget-content .ui-state-hover, .admin_relative_calendar_con .ui-widget-header .ui-state-hover, .admin_relative_calendar_con .ui-state-focus, .admin_relative_calendar_con .ui-widget-content .ui-state-focus, .admin_relative_calendar_con .ui-widget-header .ui-state-focus, .admin_relative_calendar_con .ui-button:hover, .admin_relative_calendar_con .ui-button:focus { background-color: #f1f1f1;} 
+.admin_relative_calendar_con .ui-widget-header .ui-icon { background-image: url('../img/admin_datepicker_arrow.png'); } 
+.admin_relative_calendar_con .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+.admin_relative_calendar_con .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; }
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td:first-child > span { color: #fc4c4e !important; }
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td:first-child > span::after{font-family: 'S-CoreDream'; display: block; content: '정기휴무'; background-color: #fc4c4e; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;}
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td:last-child > span { color: #0c43b7 !important; }
+.admin_relative_calendar_con .ui-datepicker-calendar > tbody > tr > td:last-child > span::after{font-family: 'S-CoreDream'; display: block; content: '정기휴무'; background-color: #fc4c4e; border-radius: 7px; padding: 1px; font-weight: 900; text-align: center; font-size: 15px; color: #fff; margin-top: 15px;} 
+.admin_relative_calendar_con .ui-datepicker-calendar > thead > tr > th:first-child { color: #fc4c4e !important; } 
+.admin_relative_calendar_con .ui-datepicker-calendar > thead > tr > th:last-child { color: #0c43b7 !important; } 
+
+.admin_relative_calendar_con .ui-state-highlight, .admin_relative_calendar_con .ui-widget-content .ui-state-highlight, .admin_relative_calendar_con .ui-widget-header .ui-state-highlight { color: #000; } 
+
+
+.update_info_text > span{text-align: center; display: inline-block; box-sizing: border-box; position: relative; border: 1px solid #fc4c4e; border-radius: 3px; overflow: hidden; padding: 3px 5px; color: #fc4c4e; font-size: 13px; font-size: 1.3rem; line-height: 19px; line-height: 1.9rem; font-weight: 400; letter-spacing: -0.02em;}
+.check_info_text > span{display: inline-block; box-sizing: border-box; position: relative; font-size: 13px; font-size: 1.3rem; line-height: 19px; line-height: 1.9rem; font-weight: 400; letter-spacing: -0.02em; color: #31373d;}
+
+@media all and (min-width: 992px){
+	/* .admin_card_list_style_0_inner:hover{border-color: #000; background-color: #ced0dd;} */
+	.admin_card_list_style_0_inner .btn_con > a:hover{background-color: #abe812; transition: background-color 0.2s ease;}
+	.admin_card_list_style_0_inner .btn_con > a:hover > span{color: #051937;}		
+}

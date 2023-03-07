@@ -1,0 +1,338 @@
+
+
+/* COMMON CSS - LAYOUT CSS */
+
+
+/* all layout */
+
+body {
+    min-width: 1220px;
+}
+
+.wrap {
+    width: 100%;
+}
+
+.layout{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+
+#header .layout{
+    overflow: hidden;
+}
+
+#header .h_top{
+    background: #ebebeb;
+}
+
+#header .h_top{
+    overflow: hidden;
+}
+
+#header .h_top ul li{
+    float: left;
+    line-height: 32px;
+}
+
+#header .h_top .top_m{
+    float: right;
+}
+
+#header .h_top .top_m a{
+    font-size: 13px;
+    color: #484848;
+    display:inline;
+}
+
+#header .h_top .top_m li:first-child a{
+    background: url('../img/bar.jpg') right center no-repeat;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+#header .h_bottom{
+    padding: 23px 0;
+}
+
+#header .h_bottom .logo{
+    float: left;
+}
+
+#header .h_bottom .logo a{
+    display: block;
+    width: 245px;
+    height: 43px;
+}
+
+#header .h_bottom .gnb_wrap{
+    float: right;
+}
+
+#header .gnb_wrap>ul>li{
+    float: left;
+}
+
+#header .gnb_wrap>ul>li>a{
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+    padding: 7px 18px;
+    font-family: 'nanumsquare','Nanum Gothic', 'Dotum','돋움',sans-serif;
+    transform: skew(-0.05deg)
+}
+
+#header .gnb_wrap ul li .nopl{
+    padding-left: 0;
+}
+
+#header .gnb_wrap ul li .nopr{
+    padding-right: 0;
+}
+
+
+.gnb_wrap >ul > li > a::after{
+  content: '';
+  display: block;
+  width: 0;
+  border-bottom: 2px solid  red;
+  transition: 0.3s;
+  /* margin: 0 auto; */
+  background: red
+}
+
+.gnb_wrap >ul > li:hover a::after{width: 100%;}
+
+/* drop down menu */
+
+#dropmenu {
+  position:absolute;
+  width:100%; height:295px;
+  /* background:#fff; */
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+  z-index:9;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+  display:none;
+  background:#fff url(../images/common/dropmu_bg.png) 1350px 120px no-repeat;
+}
+#dropmenu:before {
+  content: "";
+  position:absolute;
+  left:0;top:0;
+  width:400px; height:1px;
+  /* border-top : 290px solid #c4e2eb;
+  border-right:200px solid transparent; */
+  z-index:-1;
+}
+#dropmenu .drop_wrap {
+  width:1200px;
+  margin:0 auto;
+  overflow: hidden;
+}
+#dropmenu .drop_left {
+  float:left;
+  width:340px;
+  padding-top:80px;
+}
+#dropmenu .drop_left h2 {
+  padding-top:14px;
+  padding-bottom:6px;
+  font-family:"NanumSquare", sans-serif;
+  font-size:26px;
+  font-weight: 700;
+  font-weight: bold;
+  position:relative;
+}
+#dropmenu .drop_left h2:before {
+  content: "";
+  position:absolute;
+  top:0; left:2px;
+  width:20px; height:2px;
+  background:#014099;
+}
+#dropmenu .drop_left p {
+  font-size:14px;
+  line-height:17px;
+}
+
+#dropmenu .drop_right {
+  float:left;
+  width:860px; height:290px;
+  position:relative;
+}
+#dropmenu .drop_right .drop_item {
+  width:100%; height:100%;
+  display:none;
+}
+/*
+#dropmenu .drop_right .drop_item:nth-child(3) {
+  display:block;
+}
+*/
+#dropmenu .drop_right .drop_sub {
+  float:left;
+  width:25%; height:100%;
+  padding:10px 15px;
+  box-sizing: border-box;
+  position:relative;
+}
+#dropmenu .drop_right .drop_sub:after {
+  content: "";
+  position:absolute;
+  right:0; top:0;
+  width:1px; height:100%;
+  border-right:1px dotted #ccc;
+}
+#dropmenu .drop_right .drop_item > .drop_sub:first-child:after {border-left:0;}
+#dropmenu .drop_right .drop_sub > li {
+  font-weight: 700;
+  font-weight: bold;
+  margin-bottom:8px;
+  font-size: 15px;
+  cursor: default;
+}
+
+#dropmenu .drop_right .drop_sub > li > ul > li {
+  font-size:13px;
+  padding-left:4px;
+}
+#dropmenu .drop_right .drop_sub > li > ul {
+  padding-top:2px;
+}
+#dropmenu .drop_right .drop_sub > li > ul > li:before {
+  content: "- ";
+}
+#dropmenu .drop_right .drop_sub > li > ul > li > a{
+  font-size: 14px;
+  letter-spacing: -1px;
+}
+#dropmenu .drop_right .drop_sub > li > ul > li > a:hover{
+  text-decoration: underline;
+}
+
+/* Footer */
+
+#footer{
+    background: #707a82;
+}
+
+#footer .ft_top{
+    border-bottom: 1px solid #91989e;
+    padding: 12px 0;
+}
+
+#footer .ft_top .layout{
+    overflow: hidden;
+}
+
+#footer .ft_top ul{
+    overflow: hidden;
+    float: left;
+    margin-top: 3px;
+}
+
+#footer .ft_top ul li{
+    float: left;
+    margin-right: 26px;
+}
+
+#footer .ft_top ul li a{
+    color: #fff;
+    font-size: 14px;
+}
+
+#footer .ft_top .count{
+    float: right;
+}
+
+#footer .ft_top .count span{
+    color: #fff;
+    font-size: 14px;
+    margin-left: 18px;
+    vertical-align: middle;
+}
+
+#footer .ft_top .count .tit{
+    font-weight: 500;
+    padding: 3px 20px;
+    background: #888e92;
+    font-size: 15px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    display: inline-block;
+}
+
+#footer .ft_bot{
+    padding: 50px 0;
+}
+
+#footer .ft_bot .layout{
+    overflow: hidden;
+}
+
+#footer .ft_bot .ft_logo,
+#footer .ft_bot address{
+    float: left;
+}
+
+#footer .ft_bot .ft_logo{
+    margin-top: 25px;
+}
+
+#footer .ft_bot address{
+    margin-left: 65px;
+}
+
+#footer .ft_bot address p{
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+#footer .ft_bot address p .bar{
+    margin: 0 10px;
+}
+
+
+#footer .orgsns_box{
+  overflow: hidden;
+  width: 245px;
+  float: right;
+}
+#footer .ft_bot .orgsns_box .sns{
+    float: left;
+}
+
+#footer .ft_bot .orgsns_box .sns a{
+    margin-left: 9px;
+}
+
+#footer .ft_bot .orgsns_box select{
+    width: 178px;
+    float: right;
+}
+
+/* content layout */
+
+#content {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+/* Email Refusal */
+
+.emrefu_wrap img{
+    display: block;
+    margin: 30px auto;
+}
+
+.emrefu_wrap .refusal_txt{
+    font-size: 14px !important;
+    color: #333 !important;
+    text-align: center;
+}

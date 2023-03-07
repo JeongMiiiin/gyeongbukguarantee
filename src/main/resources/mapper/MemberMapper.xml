@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.admin">
+	<!-- 로그인 -->
+	<select id="logincheck" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM gb_member WHERE mem_userid = #{userId} AND mem_password = #{userPw} AND mem_deleted_at IS NULL LIMIT 1
+	</select>
+	<!-- 서브관리자 로그인 시 ip체크 -->
+	<select id="checkIp" parameterType="HashMap" resultType="int">
+		SELECT COUNT(*) FROM gb_member WHERE mem_userid = #{userId} AND mem_password = #{userPw} AND mem_access_ip = #{clientIp} AND mem_deleted_at IS NULL LIMIT 1
+	</select>
+	<!-- ip변경요청을 위한 회원정보조회 -->
+	<select id="inquiryIpCheckId" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM gb_member WHERE mem_userid = #{userId} AND mem_password = #{userPw} AND mem_deleted_at IS NULL LIMIT 1
+	</select>
+	<!-- ip 변경요청 테이블에 row 쌓기 -->
+	<insert id="inquiryIp" parameterType="HashMap">
+		INSERT INTO gb_member_ip_log (mem_idx, mil_origin_ip, mil_access_ip) VALUE (#{memIdx}, #{milOriginIp}, #{inquiryIp} )
+	</insert>
+	<!-- 비밀번호 변경 -->
+	<update id="changePassword" parameterType="HashMap">
+		UPDATE gb_member SET mem_password = #{userPw}, mem_is_first = 0 WHERE mem_idx = #{memIdx} AND mem_userid = #{userId} AND mem_deleted_at IS NULL LIMIT 1
+	</update>
+	<!-- 인증번호변경 -->
+	<update id="updateCertificationCode" parameterType="HashMap">
+		UPDATE gb_member SET mem_certification_code = #{certificationCode} WHERE mem_idx = #{memIdx} AND mem_deleted_at IS NULL LIMIT 1
+	</update>
+	<!-- 인증번호확인 -->
+	<select id="checkCertificationCode" parameterType="HashMap" resultType="int">
+		SELECT COUNT(*) FROM gb_member WHERE mem_idx = #{memIdx} AND mem_certification_code = #{certificationCode} AND mem_deleted_at IS NULL LIMIT 1
+	</select>	
+</mapper>

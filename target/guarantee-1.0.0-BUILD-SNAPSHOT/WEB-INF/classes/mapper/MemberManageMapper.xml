@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.manage">
+	<sql id="whereParam" >
+		<if test="searchId != null and searchId != ''">
+			<![CDATA[ 
+			 AND 
+				mem_userid like concat('%',#{searchId},'%') 
+			 ]]> 
+		</if>
+		<if test="searchName != null and searchName != ''">
+			<![CDATA[ 
+			 AND 
+				mem_username like concat('%',#{searchName},'%') 
+			 ]]> 
+		</if>
+	</sql>
+	
+	<!-- 리스트 조회 -->
+	<select id="selectListData" parameterType="MemberAdmDto" resultMap="CommonDto.MemberAdmMap">
+		SELECT * FROM gb_member WHERE mem_blocked_at IS NULL AND mem_deleted_at IS NULL AND mem_level = 9 <include refid="whereParam"/>
+		ORDER BY mem_created_at DESC
+		<![CDATA[			
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+		]]>	
+	</select>
+	
+	<!-- 총 건수 -->
+	<select id="selectTotalCnt" parameterType="MemberAdmDto" resultType="int">
+		SELECT COUNT(*) FROM gb_member WHERE mem_blocked_at IS NULL AND mem_deleted_at IS NULL AND mem_level = 9
+		<include refid="whereParam"/>
+	</select>
+	
+	<!-- 상세 -->
+	<select id="selectViewData" parameterType="int" resultMap="CommonDto.MemberAdmMap">
+		SELECT * FROM gb_member WHERE mem_idx = #{memIdx}
+	</select>
+	
+	<!-- 아이디중복확인 -->
+	<select id="checkDuplicateId" parameterType="HashMap" resultType="int">
+		SELECT COUNT(*) FROM gb_member WHERE mem_blocked_at IS NULL AND mem_deleted_at IS NULL AND mem_userid = #{memUserId}
+	</select>
+	
+	<!-- 데이터 추가 -->
+	<insert id="insertData" parameterType="MemberAdmDto">
+		INSERT INTO gb_member (mem_username, mem_userid, mem_password, mem_access_ip) VALUES (#{memUserName}, #{memUserId}, #{memPassword}, #{memAccessIp})
+	</insert>
+	
+	<!-- 데이터 업데이트 -->
+	<update id="updateData" parameterType="MemberAdmDto">
+		UPDATE gb_member SET mem_username = #{memUserName}, mem_userid = #{memUserId}, mem_access_ip = #{memAccessIp} WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+	<!-- 비밀번호 초기화 -->
+	<update id="initializePassword" parameterType="HashMap">
+		UPDATE gb_member SET mem_password = #{userPw}, mem_is_first = 1 WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+	<!-- 논리적 삭제 -->
+	<update id="deleteData" parameterType="int">
+		UPDATE gb_member SET mem_deleted_at = now() WHERE mem_idx = #{memIdx} LIMIT 1
+	</update>
+	
+	<!-- 서브관리자 조회 -->
+	<select id="selectManagerList" resultMap="CommonDto.MemberAdmMap">
+		SELECT * FROM gb_member WHERE mem_blocked_at IS NULL AND mem_deleted_at IS NULL AND mem_level = 9
+	</select>
+	
+</mapper>

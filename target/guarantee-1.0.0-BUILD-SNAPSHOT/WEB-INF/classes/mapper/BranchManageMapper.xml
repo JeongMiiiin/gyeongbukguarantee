@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="branch.manage">
+	<sql id="whereMemParam">
+		<if test="memIdx != null and memIdx != ''">
+			 AND gb.mem_idx = #{memIdx} 
+		</if>
+	</sql>
+	<sql id="whereTimeSettingParam">
+		<if test="gbtsStatus != null and gbtsStatus != ''">
+			<if test="notSameStatus == null">
+				 AND gbts_status IN (#{gbtsStatus}) 
+			</if>
+			<if test="notSameStatus != null and notSameStatus != ''">
+				 AND gbts_status NOT IN (#{gbtsStatus}) 
+			</if>
+		</if>
+		<if test="selectDate != null and selectDate != ''">
+				 AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbts_applied_at, '%Y-%m-%d') 
+		</if>
+		<if test="targetDate != null and targetDate != ''">
+				AND DATE_FORMAT(#{targetDate}, '%Y-%m-%d') = DATE_FORMAT(gbts_target_date, '%Y-%m-%d')
+		</if>
+	</sql>
+	<sql id="whereDateSettingParam">
+		<if test="gbdsStatus != null and gbdsStatus != ''">
+			<if test="notSameStatus == null">
+				 AND gbds_status IN (#{gbdsStatus}) 
+			</if>
+			<if test="notSameStatus != null and notSameStatus != ''">
+				 AND gbds_status NOT IN (#{gbdsStatus}) 
+			</if>
+		</if>
+		<if test="selectDate != null and selectDate != ''">
+			AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbds_applied_at, '%Y-%m-%d')  
+		</if>
+	</sql>
+	<sql id="limitParam">
+		<if test="limitCnt != null and limitCnt != ''">
+			LIMIT #{limitCnt}
+		</if>
+	</sql>
+	
+	<!-- 리스트 조회 -->
+	<select id="selectListData" parameterType="BranchDto" resultMap="CommonDto.BranchMap">
+		SELECT gb.*, gm.mem_username FROM gb_branch gb LEFT JOIN gb_member gm ON gb.mem_idx = gm.mem_idx AND gm.mem_deleted_at IS NULL WHERE gb.br_deleted_at IS NULL <include refid="whereMemParam"/>
+		ORDER BY br_opened_at
+	</select>
+
+	<!-- 총 건수 -->
+	<select id="selectTotalCnt" parameterType="BranchDto" resultType="int">
+		SELECT COUNT(*) FROM gb_branch WHERE br_deleted_at IS NULL <include refid="whereMemParam"/>
+	</select>
+	
+	<!-- 상세 데이터 조회 -->
+	<select id="selectViewData" parameterType="int" resultMap="CommonDto.BranchMap">
+		SELECT gb.*, gbc.br_default_consult_time, gbdc.br_default_counter_num,
+		gbt.br_opened_time, TIME_FORMAT(gbt.br_opened_time, '%H:%i') AS br_opened_time_str,
+		gbt.br_closed_time, TIME_FORMAT(gbt.br_closed_time, '%H:%i') AS br_closed_time_str,
+		gbt.br_lunch_opened_time, TIME_FORMAT(gbt.br_lunch_opened_time, '%H:%i') AS br_lunch_opened_time_str,
+		gbt.br_lunch_closed_time, TIME_FORMAT(gbt.br_lunch_closed_time, '%H:%i') AS br_lunch_closed_time_str
+		FROM
+		gb_branch gb,
+		(SELECT br_opened_time, br_closed_time, br_lunch_opened_time, br_lunch_closed_time FROM gb_branch_time WHERE br_idx = #{brIdx}
+			ORDER BY gbt_idx DESC LIMIT 1) gbt,
+		(SELECT br_default_consult_time FROM gb_branch_consult_time WHERE br_idx = #{brIdx}
+			ORDER BY gbc_idx DESC LIMIT 1) gbc,
+		(SELECT br_default_counter_num FROM gb_branch_default_counter_num WHERE br_idx = #{brIdx}
+			ORDER BY gbdc_idx DESC LIMIT 1) gbdc
+		WHERE gb.br_idx = #{brIdx}
+	</select>
+	
+	<!-- 상세 데이터 조회 ( 사용자 ) -->
+	<select id="selectFrontViewData" parameterType="int" resultMap="CommonDto.BranchMap">
+		SELECT gb.*, gbc.br_default_consult_time, gbdc.br_default_counter_num,
+		gbt.br_opened_time, TIME_FORMAT(gbt.br_opened_time, '%H:%i') AS br_opened_time_str,
+		gbt.br_closed_time, TIME_FORMAT(gbt.br_closed_time, '%H:%i') AS br_closed_time_str,
+		gbt.br_lunch_opened_time, TIME_FORMAT(gbt.br_lunch_opened_time, '%H:%i') AS br_lunch_opened_time_str,
+		gbt.br_lunch_closed_time, TIME_FORMAT(gbt.br_lunch_closed_time, '%H:%i') AS br_lunch_closed_time_str
+		FROM
+		gb_branch gb,
+		(SELECT br_opened_time, br_closed_time, br_lunch_opened_time, br_lunch_closed_time FROM gb_branch_time
+		WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbt_applied_at, '%Y-%m-%d')
+			ORDER BY gbt_idx DESC LIMIT 1) gbt,
+		(SELECT br_default_consult_time FROM gb_branch_consult_time
+			WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbc_applied_at, '%Y-%m-%d')
+			ORDER BY gbc_idx DESC LIMIT 1) gbc,
+		(SELECT br_default_counter_num FROM gb_branch_default_counter_num
+			WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbdc_applied_at, '%Y-%m-%d')
+			ORDER BY gbdc_idx DESC LIMIT 1) gbdc	
+		WHERE gb.br_idx = #{brIdx}
+	</select>
+	
+	<!-- 지점 특정시간대 데이터 조회 (요일 설정 및 특정일 특정시간대 조회 포함) -->
+	<select id="selectTimeSettingList" parameterType="HashMap" resultMap="CommonDto.BranchTimeSettingMap">
+		SELECT
+		*,
+		DATE_FORMAT(gbts_applied_at, '%Y-%m-%d') AS gbts_applied_at_str,
+		DATE_FORMAT(gbts_target_date, '%Y-%m-%d') AS gbts_target_date_str,
+		TIME_FORMAT(gbts_start_time, '%H:%i') AS gbts_start_time_str,
+		TIME_FORMAT(gbts_end_time, '%H:%i') AS gbts_end_time_str
+		FROM gb_branch_time_setting WHERE br_idx = #{brIdx} <include refid="whereTimeSettingParam"/>
+		ORDER BY gbts_idx DESC <include refid="limitParam"/>
+	</select>
+	
+	<!-- 지점 특정일 데이터 조회 (휴무일, 예약마감 포함) -->
+	<select id="selectDateSettingList" parameterType="HashMap" resultMap="CommonDto.BranchDateSettingMap">
+		SELECT
+		*,
+		DATE_FORMAT(gbds_applied_at, '%Y-%m-%d') AS gbds_applied_at_str,
+		DATE_FORMAT(gbds_date, '%Y-%m-%d') AS gbds_date_str
+		FROM gb_branch_date_setting WHERE br_idx = #{brIdx} <include refid="whereDateSettingParam"/>
+	</select>
+	
+	<!-- 지점 특정날짜의 기본 창구개수 조회 -->
+	<select id="selectTargetConsultDefaultNum" parameterType="HashMap" resultType="HashMap">
+		SELECT br_default_counter_num FROM gb_branch_default_counter_num
+			WHERE br_idx = #{brIdx}
+			AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbdc_applied_at, '%Y-%m-%d') 
+			ORDER BY gbdc_idx DESC LIMIT 1
+	</select>
+	
+	<!-- 지점 특정일의 창구개수 조회 -->
+	<select id="selectTargetConsultNum" parameterType="HashMap" resultType="HashMap">
+		SELECT gbds_counter_num FROM gb_branch_date_setting
+			WHERE br_idx = #{brIdx} AND gbds_status = 1
+			AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') = DATE_FORMAT(gbds_date, '%Y-%m-%d')
+			ORDER BY gbds_idx DESC LIMIT 1
+	</select>
+	
+	<!-- 지점 추가 -->
+	<insert id="insertData" parameterType="HashMap" useGeneratedKeys="true" keyProperty="br_idx">
+		INSERT INTO gb_branch (br_name, br_category_name, br_address, br_hp, mem_idx) VALUES (#{brName}, #{brCategoryName}, #{brAddress}, #{brHp}, #{memIdx})
+	</insert>
+	
+	<!-- 기본 상담시간 데이터 추가 -->
+	<insert id="insertDefaultConsultTime" parameterType="HashMap">
+		INSERT INTO gb_branch_consult_time (br_idx, br_default_consult_time, gbc_applied_at) VALUES (#{brIdx}, #{brDefaultConsultTime}, (LAST_DAY(#{targetDate} - INTERVAL 1 MONTH) + INTERVAL 1 DAY))
+	</insert>
+	
+	<!-- 기본 운영시간 데이터 추가 -->
+	<insert id="insertOperationTime" parameterType="HashMap">
+		INSERT INTO gb_branch_time (br_idx, br_opened_time, br_closed_time, br_lunch_opened_time, br_lunch_closed_time, gbt_applied_at) VALUES (#{brIdx}, #{brOpenedTime}, #{brClosedTime}, #{brLunchOpenedTime}, #{brLunchClosedTime}, #{targetDate})
+	</insert>
+	
+	<!-- 기본 상담창구개수 데이터 추가 -->
+	<insert id="insertDefaultConsultNum" parameterType="HashMap">
+		INSERT INTO gb_branch_default_counter_num (br_idx, br_default_counter_num, gbdc_applied_at) VALUES (#{brIdx}, #{brDefaultCounterNum}, #{targetDate})
+	</insert>
+	
+	<!-- 업데이트 -->
+	<update id="updateData" parameterType="HashMap">
+		UPDATE gb_branch SET
+		br_name = #{brName}
+		,br_category_name = #{brCategoryName}
+		,br_address = #{brAddress}
+		,br_hp = #{brHp}
+		,mem_idx = #{memIdx}
+		WHERE br_idx = #{brIdx} LIMIT 1
+	</update>
+	
+	<!-- 같은 시간 세팅이 있는지 확인 -->
+	<select id="checkTimeSetting" parameterType="BranchTimeSettingDto" resultType="int">
+		SELECT COUNT(*) FROM gb_branch_time_setting WHERE br_idx = #{brIdx} AND gbts_status = #{gbtsStatus}
+		AND gbts_counter_num = #{gbtsCounterNum} AND TIME_FORMAT(gbts_start_time, '%H:%i') = #{gbtsStartTime} AND TIME_FORMAT(gbts_end_time, '%H:%i') = #{gbtsEndTime}
+		AND #{gbtsAppliedAt} >= DATE_FORMAT(gbts_applied_at, '%Y-%m-%d') <if test="gbtsTargetDate != null and gbtsTargetDate != ''"> AND DATE_FORMAT(gbts_target_date, '%Y-%m-%d') = #{gbtsTargetDate}</if> 
+	</select>
+	<!-- 같은 일자 세팅이 있는지 확인 -->
+	<select id="checkDateSetting" parameterType="BranchDateSettingDto" resultType="int">
+		SELECT COUNT(*) FROM gb_branch_date_setting WHERE br_idx = #{brIdx} AND gbds_status = #{gbdsStatus}
+		AND gbds_counter_num = #{gbdsCounterNum} AND gbds_date = #{gbdsDate}
+		AND #{gbdsAppliedAt} >= DATE_FORMAT(gbds_applied_at, '%Y-%m-%d') 
+	</select>
+	<!-- 지점시간관리에서 업데이트할 때 -->
+	<update id="updateTimeData" parameterType="HashMap">
+		UPDATE gb_branch SET
+		br_name = #{brName}
+		WHERE br_idx = #{brIdx} LIMIT 1
+	</update>
+	
+	<delete id="deleteTimeSettingData" parameterType="HashMap">
+		DELETE FROM gb_branch_time_setting WHERE br_idx = #{brIdx} AND gbts_status = #{gbtsStatus}
+	</delete>
+	
+	<!-- 시간설정 추가 -->
+	<insert id="insertTimeSettingData" parameterType="BranchTimeSettingDto">
+		INSERT INTO gb_branch_time_setting (br_idx, gbts_status, gbts_start_time, gbts_end_time, gbts_counter_num, gbts_target_date, gbts_applied_at) VALUES (#{brIdx}, #{gbtsStatus}, #{gbtsStartTime}, #{gbtsEndTime}, #{gbtsCounterNum}, #{gbtsTargetDate}, #{gbtsAppliedAt})
+	</insert>
+	
+	<delete id="deleteDateSettingData" parameterType="int">
+		DELETE FROM gb_branch_date_setting WHERE br_idx = #{brIdx} AND gbds_status = 1
+	</delete>
+	
+	<insert id="insertDateSettingData" parameterType="BranchDateSettingDto">
+		INSERT INTO gb_branch_date_setting (br_idx, gbds_status, gbds_date, gbds_counter_num, gbds_applied_at) VALUES (#{brIdx}, 1, #{gbdsDate}, #{gbdsCounterNum}, #{gbdsAppliedAt})
+	</insert>
+	
+	<delete id="deleteTimeDateSettingData" parameterType="int">
+		DELETE FROM gb_branch_date_setting WHERE br_idx = #{brIdx} AND gbds_status = 2
+	</delete>
+	
+	<insert id="insertTimeDateSettingData" parameterType="BranchDateSettingDto">
+		INSERT INTO gb_branch_date_setting (br_idx, gbds_status, gbds_date, gbds_applied_at) VALUES (#{brIdx}, 2, #{gbdsDate}, DATE_FORMAT(now(), '%Y-%m-%d'))
+	</insert>
+	
+	<!-- 논리적 삭제 -->
+	<update id="deleteData" parameterType="int">
+		UPDATE gb_branch SET br_deleted_at = now() WHERE br_idx = #{brIdx} LIMIT 1
+	</update>
+	
+	<select id="selectTargetBranchData" parameterType="HashMap" resultType="HashMap">
+		SELECT gb.*, gbc.br_default_consult_time, gbdc.br_default_counter_num,
+		 gbt.br_opened_time, TIME_FORMAT(gbt.br_opened_time, '%H:%i') AS br_opened_time_str,
+		 gbt.br_closed_time, TIME_FORMAT(gbt.br_closed_time, '%H:%i') AS br_closed_time_str,
+		gbt.br_lunch_opened_time, TIME_FORMAT(gbt.br_lunch_opened_time, '%H:%i') AS br_lunch_opened_time_str,
+		gbt.br_lunch_closed_time, TIME_FORMAT(gbt.br_lunch_closed_time, '%H:%i') AS br_lunch_closed_time_str
+		FROM gb_branch gb,
+		(SELECT br_opened_time, br_closed_time, br_lunch_opened_time, br_lunch_closed_time FROM gb_branch_time
+			WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbt_applied_at, '%Y-%m-%d')
+			ORDER BY gbt_idx DESC LIMIT 1) gbt,
+		(SELECT br_default_consult_time FROM gb_branch_consult_time
+			WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbc_applied_at, '%Y-%m-%d')
+			ORDER BY gbc_idx DESC LIMIT 1) gbc,
+		(SELECT br_default_counter_num FROM gb_branch_default_counter_num
+		WHERE br_idx = #{brIdx} AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= DATE_FORMAT(gbdc_applied_at, '%Y-%m-%d')
+			ORDER BY gbdc_idx DESC LIMIT 1) gbdc
+		WHERE gb.br_idx = #{brIdx}
+	</select>
+	
+	<select id="selectTargetBranchTimeData" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		*,
+		DATE_FORMAT(gbts_target_date,'%Y-%m-%d') AS gbts_target_date_str, 
+		TIME_FORMAT(gbts_start_time, '%H:%i') AS gbts_start_time_str,
+		TIME_FORMAT(gbts_end_time, '%H:%i') AS gbts_end_time_str
+		FROM gb_branch_time_setting WHERE br_idx = #{brIdx}
+		ORDER BY gbts_status ASC
+	</select>
+	
+	<select id="selectTargetBranchDateData" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		*,
+		DATE_FORMAT(gbds_date, '%Y-%m-%d') AS gbds_date_str
+		FROM gb_branch_date_setting WHERE br_idx = #{brIdx}
+	</select>
+	
+	<select id="selectTargetConsultTime" parameterType="HashMap" resultType="String">
+		SELECT br_default_consult_time FROM gb_branch_consult_time
+			WHERE br_idx = #{brIdx}
+			AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbc_applied_at, '%Y-%m-%d')
+			ORDER BY gbc_idx DESC LIMIT 1
+	</select>
+	
+	<select id="selectTargetOperationTime" parameterType="HashMap" resultType="HashMap">
+		SELECT TIME_FORMAT(br_opened_time, '%H:%i') AS br_opened_time, TIME_FORMAT(br_closed_time, '%H:%i') AS br_closed_time, TIME_FORMAT(br_lunch_opened_time, '%H:%i') AS br_lunch_opened_time, TIME_FORMAT(br_lunch_closed_time, '%H:%i') AS br_lunch_closed_time FROM gb_branch_time
+		WHERE br_idx = #{brIdx} AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbt_applied_at, '%Y-%m-%d')
+		ORDER BY gbt_idx DESC LIMIT 1
+	</select>
+	
+	<select id="selectTargetOperationWeekTime" parameterType="HashMap" resultType="HashMap">
+		SELECT TIME_FORMAT(gbts_start_time, '%H:%i') AS start_time, TIME_FORMAT(gbts_end_time, '%H:%i') AS close_time FROM gb_branch_time_setting
+		WHERE br_idx = #{brIdx} <include refid="whereTimeSettingParam"/>
+		ORDER BY gbts_idx DESC LIMIT 1
+	</select>
+	
+	<select id="selectSpecialTimeList" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		*,
+		DATE_FORMAT(gbts_applied_at, '%Y-%m-%d') AS gbts_applied_at_str,
+		DATE_FORMAT(gbts_target_date, '%Y-%m-%d') AS gbts_target_date_str,
+		TIME_FORMAT(gbts_start_time, '%H:%i') AS gbts_start_time_str,
+		TIME_FORMAT(gbts_end_time, '%H:%i') AS gbts_end_time_str
+		FROM gb_branch_time_setting WHERE br_idx = #{brIdx} AND gbts_status IN (6,7) AND DATE_FORMAT(#{selectDate},'%Y-%m-%d') >= DATE_FORMAT(gbts_applied_at,'%Y-%m-%d')
+		ORDER BY gbts_idx DESC
+	</select>
+	
+	<!-- 지점 담당자로 되어있는지 체크 -->
+	<select id="checkBranchManager" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM gb_branch WHERE mem_idx = #{memIdx} AND br_deleted_at IS NULL
+	</select>
+	
+	<select id="selectTargetPrivateTimeSettingList" parameterType="HashMap" resultType="HashMap">
+		SELECT TIME_FORMAT(gbts_start_time, '%H:%i') AS gbts_start_time_str, TIME_FORMAT(gbts_end_time, '%H:%i') AS gbts_end_time_str, gbts_counter_num
+		FROM gb_branch_time_setting WHERE gbts_status = #{gbtsStatus} AND br_idx = #{brIdx}
+		AND DATE_FORMAT(#{selectDate}, '%Y-%m-%d') >= DATE_FORMAT(gbts_applied_at, '%Y-%m-%d')
+		<if test="targetDate != null and targetDate != ''">
+			 AND DATE_FORMAT(gbts_target_date, '%Y-%m-%d') = DATE_FORMAT(#{targetDate}, '%Y-%m-%d') 
+		</if>
+	</select>
+	
+</mapper>

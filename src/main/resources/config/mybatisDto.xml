@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommonDto">
+	<resultMap id="MemberAdmMap" type="MemberAdmDto">
+		<id property="memIdx" column="mem_idx"/>
+		<id property="memUserId" column="mem_userid"/>
+		<id property="memPassword" column="mem_password"/>
+		<id property="memUserName" column="mem_username"/>
+		<id property="memLevel" column="mem_level"/>
+		<id property="memPhone" column="mem_phone"/>
+		<id property="memAccessIp" column="mem_access_ip"/>
+		<id property="memIsFirst" column="mem_is_first"/>
+	</resultMap>
+	<resultMap id="InquiryIpMap" type="InquiryIpDto">
+		<id property="milIdx" column="mil_idx"/>
+		<id property="memIdx" column="mem_idx"/>
+		<id property="memUserName" column="mem_username"/>
+		<id property="memUserId" column="mem_userid"/>
+		<id property="milOriginIp" column="mil_origin_ip"/>
+		<id property="milAccessIp" column="mil_access_ip"/>
+		<id property="milIsApproved" column="mil_is_approved"/>
+		<id property="milRequestAtStr" column="mil_request_at_str"/>
+	</resultMap>
+	<resultMap id="BranchMap" type="BranchDto">
+		<id property="brIdx" column="br_idx"/>
+		<id property="brName" column="br_name"/>
+		<id property="brCategoryName" column="br_category_name"/>
+		<id property="brAddress" column="br_address"/>
+		<id property="brHp" column="br_hp"/>
+		<id property="memIdx" column="mem_idx"/>
+		<id property="memUserName" column="mem_username"/>
+		<id property="brOpenedTime" column="br_opened_time"/>
+		<id property="brOpenedTimeStr" column="br_opened_time_str"/>
+		<id property="brClosedTime" column="br_closed_time"/>
+		<id property="brClosedTimeStr" column="br_closed_time_str"/>
+		<id property="brLunchOpenedTime" column="br_lunch_opened_time"/>
+		<id property="brLunchOpenedTimeStr" column="br_lunch_opened_time_str"/>
+		<id property="brLunchClosedTime" column="br_lunch_closed_time"/>
+		<id property="brLunchClosedTimeStr" column="br_lunch_closed_time_str"/>
+		<id property="brDefaultCounterNum" column="br_default_counter_num"/>
+		<id property="brDefaultConsultTime" column="br_default_consult_time"/>
+	</resultMap>
+	<resultMap id="BranchDateSettingMap" type="BranchDateSettingDto">
+		<id property="gbdsIdx" column="gbds_idx"/>
+		<id property="brIdx" column="br_idx"/>
+		<id property="gbdsStatus" column="gbds_status"/>
+		<id property="gbdsCounterNum" column="gbds_counter_num"/>
+		<id property="gbdsDate" column="gbds_date"/>
+		<id property="gbdsDateStr" column="gbds_date_str"/>
+		<id property="gbdsAppliedAt" column="gbds_applied_at"/>
+		<id property="gbdsAppliedAtStr" column="gbds_applied_at_str"/>
+	</resultMap>
+	<resultMap id="BranchTimeSettingMap" type="BranchTimeSettingDto">
+		<id property="gbtsIdx" column="gbts_idx"/>
+		<id property="brIdx" column="br_idx"/>
+		<id property="gbtsStatus" column="gbts_status"/>
+		<id property="gbtsStartTime" column="gbts_start_time"/>
+		<id property="gbtsStartTimeStr" column="gbts_start_time_str"/>
+		<id property="gbtsEndTime" column="gbts_end_time"/>
+		<id property="gbtsEndTimeStr" column="gbts_end_time_str"/>
+		<id property="gbtsAppliedAt" column="gbts_applied_at"/>
+		<id property="gbtsAppliedAtStr" column="gbts_applied_at_str"/>
+		<id property="gbtsCounterNum" column="gbts_counter_num"/>
+		<id property="gbtsTargetDate" column="gbts_target_date"/>
+		<id property="gbtsTargetDateStr" column="gbts_target_date_str"/>
+	</resultMap>
+	<resultMap id="ReserveMap" type="ReserveDto">
+		<id property="rlIdx" column="rl_idx"/>
+		<id property="brIdx" column="br_idx"/>
+		<id property="memIdx" column="mem_idx"/>
+		<id property="rlStatus" column="rl_status"/>
+		<id property="rlDirect" column="rl_direct"/>
+		<id property="rlName" column="rl_name"/>
+		<id property="brName" column="br_name"/>
+		<id property="brAddress" column="br_address"/>
+		<id property="rlHp" column="rl_hp"/>
+		<id property="rlBusinessType" column="rl_business_type"/>
+		<id property="rlReserveDate" column="rl_reserve_date"/>
+		<id property="rlReserveDateStr" column="rl_reserve_date_str"/>
+		<id property="rlReserveTime" column="rl_reserve_time"/>
+		<id property="rlReserveTimeStr" column="rl_reserve_time_str"/>
+	</resultMap>
+</mapper>

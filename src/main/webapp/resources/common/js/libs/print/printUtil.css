@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+@media print {
+	
+	body * {-webkit-print-color-adjust:exact;}
+	
+	body{overflow: visible !important;}
+	
+	@page {margin: 20px;} /* for 크롬 Headers and footers 없애기 */
+	
+	
+	.no-print, .no-print * {
+		display: none !important;
+	}
+	
+	.print-padding0{padding: 0 !important;}
+	
+	table { page-break-inside:auto; /* border-collapse: collapse !important; */}
+    tr    { page-break-inside:avoid; page-break-after:auto; }
+    thead { display:table-header-group; }
+    tfoot { display:table-footer-group; }
+	
+}

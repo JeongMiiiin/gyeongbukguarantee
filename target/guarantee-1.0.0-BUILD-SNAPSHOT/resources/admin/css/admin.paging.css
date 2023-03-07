@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* 페이징 */
+.admin_pagiation_style_0 {font-size: 0px; white-space: nowrap; text-align: center; margin-top: 9px;}
+.admin_pagiation_style_0 li{display: inline-block; vertical-align: middle; cursor: pointer;}
+.admin_pagiation_style_0 li.admin_pagiation_btn { z-index: 0; text-indent: -10000px; width: 10px; height: 12px; background-repeat: no-repeat; background-size: 10px 12px; margin-bottom: 2px; }
+.admin_pagiation_style_0 li.admin_pagiation_btn.first {background-image:url('../img/paging_arrow_first_icon.png'); margin-right: 17px;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.first > a{display: block; width: 100%; height: 100%;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.prev  {background-image:url('../img/paging_arrow_prev_icon.png'); background-size: 8px 12px; width: 8px; margin-right: 33px;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.prev > a{display: block; width: 100%; height: 100%;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.next {background-image:url('../img/paging_arrow_next_icon.png'); background-size: 8px 12px; width: 8px; margin-left: 33px;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.next > a{display: block; width: 100%; height: 100%;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.last {background-image:url('../img/paging_arrow_last_icon.png'); margin-left: 17px;}
+.admin_pagiation_style_0 li.admin_pagiation_btn.last > a{display: block; width: 100%; height: 100%;}
+.admin_pagiation_style_0 li.admin_pagiation { margin-left: 12px; margin-right: 12px; color: #000; padding-right: 1px; padding-left: 1px; font-size: 14px; font-size: 1.4rem; line-height: 17px; line-height: 1.7rem; font-weight: 300; letter-spacing: 0.0em; color: #54657e; z-index: 1; border-bottom:1px solid transparent; box-sizing: border-box; transition: border-color 0s;}
+.admin_pagiation_style_0 li.admin_pagiation.selected { border-color:#1d98df; color: #1d98df; font-weight: 400;}
+.admin_pagiation_style_0 li.admin_pagiation:hover{color:#f95188;}
+/* .button_container li.btn_singlePage:hover{background:url('../img/page-navi-bg_h.png') no-repeat;} */

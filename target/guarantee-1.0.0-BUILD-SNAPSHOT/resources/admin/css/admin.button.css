@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/*
+Date : 22/03/31
+Writer : JM
+Description : 관리자에서 쓰이는 버튼을 관리하기 위함.
+*/
+
+.admin_btn_style_0_con{font-size: 0; line-height: 0; text-align: center;}
+
+/*
+btn_style_0
+default : 해당 사이트의 포인트 컬러를 bg-color로 가지고 있음.
+*/
+.admin_btn_style_0{min-width: 80px; text-align: center; padding: 7px 10px; display: inline-block; box-sizing: border-box; background-color: #051937; border-radius: 3px; overflow: hidden;}
+.admin_btn_style_0 > span{font-size: 15px; font-size: 1.5rem; line-height: 21px; line-height: 2.1rem; font-weight: 400; letter-spacing: -0.02em; color: #fff;}
+
+.admin_btn_style_0.bg_grey{background-color: #7d99b6;}
+.admin_btn_style_0.bg_skyblue{background-color: #1d98df;}
+
+.admin_btn_style_0.cancel_btn{border: 2px solid #7d99b6; padding: 5px 8px; background-color: #fff;}
+.admin_btn_style_0.cancel_btn > span{color: #7d99b6;}
+
+.admin_btn_style_1{min-width: 50px; text-align: center; padding: 3px 6px; display: inline-block; box-sizing: border-box; background-color: #fff; border: 1px solid #31373d; border-radius: 3px; overflow: hidden;}
+.admin_btn_style_1 > span{font-size: 14px; font-size: 1.4rem; line-height: 20px; line-height: 2.0rem; font-weight: 400; letter-spacing: -0.02em; color: #31373d;}
+.admin_btn_style_1.skyblue{border-color: #1d98df;}
+.admin_btn_style_1.skyblue > span{color: #1d98df;}
+.admin_btn_style_1.lightgreen{border-color: #10b158;}
+.admin_btn_style_1.lightgreen > span{color: #10b158;}
+.admin_btn_style_1.grey{border-color: #7d99b6;}
+.admin_btn_style_1.grey > span{color: #7d99b6;}
+
+@media all and (min-width: 768px){
+
+}
+
+@media all and (min-width: 992px){
+
+}
+
+@media all and (min-width: 1200px){
+
+}
+
+@media all and (min-width: 1600px){
+
+}

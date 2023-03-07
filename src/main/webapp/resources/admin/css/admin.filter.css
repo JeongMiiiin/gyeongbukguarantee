@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.admin_filter_style_0_wrap{background-color: #fff; border-radius: 7px; padding: 35px; margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: flex-end;}
+
+.admin_filter_style_0_con{font-size: 17px; font-size: 1.7rem; line-height: 23px; line-height: 2.3rem; font-weight: 500; letter-spacing: -0.02em; color: #31373d;}
+.admin_filter_style_0_con tr{box-sizing: border-box;}
+.admin_filter_style_0_con tr:last-child th, .admin_filter_style_0_con tr:last-child td{padding-bottom: 0;}
+.admin_filter_style_0_con th{background-color: #fff; font-size: 14px; font-size: 1.4rem; line-height: 20px; line-height: 2.0rem; font-weight: 300; letter-spacing: 0.0em; color: #31373d; text-align: left; padding-bottom: 8px; padding-right: 20px; position: relative;}
+.admin_filter_style_0_con th::after{content: none; height: 38px; position: absolute; top: calc(50% - 4px); border-right: 1px solid #e4e9f4; right: 15px; transform: translateY(-50%);}
+.admin_filter_style_0_con tr:last-child th::after{ height: 30px; top: 50%;}
+.admin_filter_style_0_con td{background-color: #fff; padding-right: 30px; padding-bottom: 8px;}
+.admin_filter_style_0_con tr td:last-child{padding-right: 0;}
+.admin_filter_style_0_con .admin_input_style_0{background-color: #f6f8fb; border: 1px solid #e2e7ef;}
+.admin_filter_style_0_btn_con{font-size: 0; line-height: 0; text-align: right; margin-top: 20px;}
+.admin_filter_style_0_con .admin_filter_style_0_date_range{display: flex; flex-wrap: wrap; align-items: center;}
+.admin_filter_style_0_con .admin_filter_style_0_date_range .admin_input_style_0{width: calc((100% - 20px) / 2);}
+.admin_filter_style_0_con .admin_filter_style_0_date_range .addr_text{margin-left: 4px; margin-right: 4px;}
+
+.admin_filter_style_0_con .admin_search_select_category_text_con{display: flex; align-items: center;}
+.admin_filter_style_0_con .admin_search_select_category_text_con .admin_select_style_0_wrap{margin-right: 10px;}
+.admin_filter_style_0_con .admin_search_select_category_text_con input{flex: 1;}
+
+@media all and (min-width: 1200px){
+	.admin_filter_style_0_con{width: calc(100% - 250px);}
+	.admin_filter_style_0_btn_con{margin-top: 0; width: 250px;}
+}
